@@ -1,0 +1,92 @@
+
+hello.ko.unstripped:     формат файла elf64-x86-64
+
+
+Дизасемблювання розділу .init.text:
+
+0000000000000000 <init_module>:
+   0:	e8 00 00 00 00       	callq  5 <init_module+0x5>
+   5:	55                   	push   %rbp
+   6:	ba 08 00 00 00       	mov    $0x8,%edx
+   b:	be c0 0c 00 00       	mov    $0xcc0,%esi
+  10:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 17 <init_module+0x17>
+  17:	48 89 e5             	mov    %rsp,%rbp
+  1a:	41 56                	push   %r14
+  1c:	41 55                	push   %r13
+  1e:	41 54                	push   %r12
+  20:	53                   	push   %rbx
+  21:	e8 00 00 00 00       	callq  26 <init_module+0x26>
+  26:	48 89 05 00 00 00 00 	mov    %rax,0x0(%rip)        # 2d <init_module+0x2d>
+  2d:	48 89 c3             	mov    %rax,%rbx
+  30:	8b 05 00 00 00 00    	mov    0x0(%rip),%eax        # 36 <init_module+0x36>
+  36:	85 c0                	test   %eax,%eax
+  38:	75 0e                	jne    48 <init_module+0x48>
+  3a:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  41:	e8 00 00 00 00       	callq  46 <init_module+0x46>
+  46:	eb 14                	jmp    5c <init_module+0x5c>
+  48:	83 e8 05             	sub    $0x5,%eax
+  4b:	83 f8 05             	cmp    $0x5,%eax
+  4e:	77 0c                	ja     5c <init_module+0x5c>
+  50:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  57:	e8 00 00 00 00       	callq  5c <init_module+0x5c>
+  5c:	45 31 e4             	xor    %r12d,%r12d
+  5f:	45 31 f6             	xor    %r14d,%r14d
+  62:	83 3d 00 00 00 00 0a 	cmpl   $0xa,0x0(%rip)        # 69 <init_module+0x69>
+  69:	7e 02                	jle    6d <init_module+0x6d>
+  6b:	0f 0b                	ud2    
+  6d:	8b 05 00 00 00 00    	mov    0x0(%rip),%eax        # 73 <init_module+0x73>
+  73:	44 39 e0             	cmp    %r12d,%eax
+  76:	76 41                	jbe    b9 <init_module+0xb9>
+  78:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 7f <init_module+0x7f>
+  7f:	ba 10 00 00 00       	mov    $0x10,%edx
+  84:	be c0 0c 00 00       	mov    $0xcc0,%esi
+  89:	e8 00 00 00 00       	callq  8e <init_module+0x8e>
+  8e:	48 89 03             	mov    %rax,(%rbx)
+  91:	e8 00 00 00 00       	callq  96 <init_module+0x96>
+  96:	41 83 fc 07          	cmp    $0x7,%r12d
+  9a:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  a1:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  a5:	49 0f 44 de          	cmove  %r14,%rbx
+  a9:	41 ff c4             	inc    %r12d
+  ac:	49 89 dd             	mov    %rbx,%r13
+  af:	e8 00 00 00 00       	callq  b4 <init_module+0xb4>
+  b4:	48 8b 1b             	mov    (%rbx),%rbx
+  b7:	eb b4                	jmp    6d <init_module+0x6d>
+  b9:	85 c0                	test   %eax,%eax
+  bb:	74 11                	je     ce <init_module+0xce>
+  bd:	49 8b 7d 00          	mov    0x0(%r13),%rdi
+  c1:	e8 00 00 00 00       	callq  c6 <init_module+0xc6>
+  c6:	49 c7 45 00 00 00 00 	movq   $0x0,0x0(%r13)
+  cd:	00 
+  ce:	5b                   	pop    %rbx
+  cf:	31 c0                	xor    %eax,%eax
+  d1:	41 5c                	pop    %r12
+  d3:	41 5d                	pop    %r13
+  d5:	41 5e                	pop    %r14
+  d7:	5d                   	pop    %rbp
+  d8:	c3                   	retq   
+
+Дизасемблювання розділу .exit.text:
+
+0000000000000000 <cleanup_module>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	41 54                	push   %r12
+   6:	4c 8b 25 00 00 00 00 	mov    0x0(%rip),%r12        # d <cleanup_module+0xd>
+   d:	4d 85 e4             	test   %r12,%r12
+  10:	74 2f                	je     41 <cleanup_module+0x41>
+  12:	83 3d 00 00 00 00 00 	cmpl   $0x0,0x0(%rip)        # 19 <cleanup_module+0x19>
+  19:	74 26                	je     41 <cleanup_module+0x41>
+  1b:	49 8b 74 24 08       	mov    0x8(%r12),%rsi
+  20:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  27:	e8 00 00 00 00       	callq  2c <cleanup_module+0x2c>
+  2c:	49 8b 04 24          	mov    (%r12),%rax
+  30:	4c 89 e7             	mov    %r12,%rdi
+  33:	48 89 05 00 00 00 00 	mov    %rax,0x0(%rip)        # 3a <cleanup_module+0x3a>
+  3a:	e8 00 00 00 00       	callq  3f <cleanup_module+0x3f>
+  3f:	eb c5                	jmp    6 <cleanup_module+0x6>
+  41:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  48:	e8 00 00 00 00       	callq  4d <cleanup_module+0x4d>
+  4d:	41 5c                	pop    %r12
+  4f:	5d                   	pop    %rbp
+  50:	c3                   	retq   
